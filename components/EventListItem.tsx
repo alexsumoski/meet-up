@@ -2,6 +2,7 @@ import { View, Text, Image, Pressable } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import { Link } from 'expo-router';
+
 export default function EventListItem({ event }: any) {
   return (
     <Link href={`/${event.id}`} asChild>
