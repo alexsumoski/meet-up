@@ -10,15 +10,14 @@ export default function EventListItem({ event }: any) {
         <View className="flex-row">
           <View className="flex-1 gap-2">
             <Text className="text-lg font-semibold uppercase text-amber-800">
-              {dayjs(event.datetime).format('ddd, D MMM')} -{' '}
-              {dayjs(event.datetime).format('h:mm A')}
+              {dayjs(event.date).format('ddd, D MMM')} - {dayjs(event.date).format('h:mm A')}
             </Text>
             <Text className="pr-2 text-xl font-bold" numberOfLines={1}>
               {event.title}
             </Text>
             <Text className="text-gray-700">{event.location}</Text>
           </View>
-          <Image className="aspect-video w-2/5 rounded-2xl" source={{ uri: event.image }} />
+          <Image className="aspect-video w-2/5 rounded-2xl" source={{ uri: event.image_uri }} />
         </View>
 
         <View className="flex-row gap-5">
