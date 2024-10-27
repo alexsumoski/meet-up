@@ -89,7 +89,7 @@ export default function EventPage() {
       </Text>
       <Text className="text-lg">{event.description}</Text>
 
-      <Link href={`event/${event.id}/attendance`} className="text-lg" numberOfLines={2}>
+      <Link href={`/event/${event.id}/attendance`} className="text-lg" numberOfLines={2}>
         View attendance
       </Link>
 
