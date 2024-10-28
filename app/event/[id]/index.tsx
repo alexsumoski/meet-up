@@ -4,12 +4,13 @@ import dayjs from 'dayjs';
 import { supabase } from '~/utils/supabase';
 import { useEffect, useState } from 'react';
 import { useAuth } from '~/contexts/AuthProvider';
+import { Event, Attendance } from '~/types/db';
 
 export default function EventPage() {
   const { id } = useLocalSearchParams();
 
-  const [event, setEvent] = useState<any>();
-  const [attendance, setAttendance] = useState(null);
+  const [event, setEvent] = useState<Event | null>();
+  const [attendance, setAttendance] = useState<Attendance | null>(null);
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
@@ -42,7 +43,7 @@ export default function EventPage() {
   const joinEvent = async () => {
     const { data, error } = await supabase
       .from('attendance')
-      .insert({ user_id: user.id, event_id: event.id })
+      .insert({ user_id: user.id, event_id: event!.id })
       .select()
       .single();
 
@@ -54,7 +55,7 @@ export default function EventPage() {
       .from('attendance')
       .delete()
       .eq('user_id', user.id)
-      .eq('event_id', event.id);
+      .eq('event_id', event!.id);
 
     if (error) {
       console.error('Error leaving event:', error.message);
@@ -85,7 +86,7 @@ export default function EventPage() {
         {event.title}
       </Text>
       <Text className="text-lg font-semibold uppercase text-amber-800">
-        {dayjs(event.datetime).format('ddd, D MMM')} - {dayjs(event.datetime).format('h:mm A')}
+        {dayjs(event.date).format('ddd, D MMM')} - {dayjs(event.date).format('h:mm A')}
       </Text>
       <Text className="text-lg">{event.description}</Text>
 
