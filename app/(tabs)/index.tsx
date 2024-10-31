@@ -4,16 +4,25 @@ import EventListItem from '~/components/EventListItem';
 
 import { supabase } from '~/utils/supabase';
 import { useEffect, useState } from 'react';
+import { NearbyEvent } from '~/types/db';
 
 export default function Events() {
-  const [events, setEvents] = useState<any[] | null>([]);
+  const [events, setEvents] = useState<NearbyEvent[] | null>([]);
 
   useEffect(() => {
-    fetchEvents();
+    fetchNearbyEvents();
   }, []);
 
-  const fetchEvents = async () => {
+  const fetchAllEvents = async () => {
     const { data, error } = await supabase.from('events').select('*');
+    setEvents(data);
+  };
+
+  const fetchNearbyEvents = async () => {
+    const { data, error } = await supabase.rpc('nearby_events', {
+      lat: 41.375,
+      long: 2.16,
+    });
     setEvents(data);
   };
 

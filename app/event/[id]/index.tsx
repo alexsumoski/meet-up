@@ -5,6 +5,7 @@ import { supabase } from '~/utils/supabase';
 import { useEffect, useState } from 'react';
 import { useAuth } from '~/contexts/AuthProvider';
 import { Event, Attendance } from '~/types/db';
+import SupaImage from '~/components/SupaImage';
 
 export default function EventPage() {
   const { id } = useLocalSearchParams();
@@ -81,7 +82,7 @@ export default function EventPage() {
       <Stack.Screen
         options={{ title: 'Event', headerBackTitleVisible: false, headerTintColor: 'black' }}
       />
-      <Image className="aspect-video w-full rounded-2xl" source={{ uri: event.image_uri }} />
+      <SupaImage path={event?.image_uri} className="aspect-video w-full rounded-2xl" />
       <Text className="pr-2 text-3xl font-bold" numberOfLines={1}>
         {event.title}
       </Text>
